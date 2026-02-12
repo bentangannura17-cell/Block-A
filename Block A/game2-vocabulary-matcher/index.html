@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Matcher - Learning Games</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header - DARI VERSI 1 -->
+        <header class="game-header">
+            <div class="game-title">
+                <h1>🎯 Vocabulary Matcher</h1>
+            </div>
+            <button onclick="window.location.href='../index.html'" class="home-button">
+                Home Page
+            </button>
+        </header>
+
+        <!-- Tutorial Modal (kept for future reference if needed) -->
+        <div id="tutorial-modal" class="modal">
+            <div class="modal-content tutorial-content">
+                <p class="tutorial-welcome">Welcome to Vocabulary Matcher! 🎯</p>
+                <div id="tutorial-steps">
+                    <div class="tutorial-step active" data-step="1">
+                        <h3>Learn Words Through Context</h3>
+                        <p>Each word has its own context sentence to help you understand its meaning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div id="game-area" class="game-area" style="display:none;">
+            <!-- Level Info - Hidden until game starts -->
+            <div class="level-info-box" id="level-info" style="display:none;">
+                <div class="info-item">
+                    <span class="info-label">Level</span>
+                    <span class="info-value"><span id="current-level">1</span>/6</span>
+                </div>
+                <div class="info-separator"></div>
+                <div class="info-item">
+                    <span class="info-label">⏱️</span>
+                    <span class="info-value"><span id="timer">60</span>s</span>
+                </div>
+                <div class="info-separator"></div>
+                <div class="info-item">
+                    <span class="info-label">Score</span>
+                    <span class="info-value" id="score">0</span>
+                </div>
+                <div class="info-separator"></div>
+                <div class="info-item">
+                    <span class="info-label">Lives</span>
+                    <span class="info-value" id="lives">❤️❤️❤️</span>
+                </div>
+                <div class="info-separator"></div>
+                <div class="info-item">
+                    <span class="info-label">Combo</span>
+                    <span class="info-value"><span id="combo-count">0</span> <span class="multiplier" id="multiplier">x1</span></span>
+                </div>
+            </div>
+
+            <!-- Story Info - BADGES DARI VERSI 1 -->
+            <div class="story-info" id="story-info" style="display:none;">
+                <div class="story-badge">
+                    <span id="story-name">The Greedy King</span>
+                </div>
+                <div class="structure-badge">
+                    <span id="structure-name">Orientation</span>
+                </div>
+            </div>
+
+            <!-- Inline Tutorial Section -->
+            <div id="inline-tutorial" class="inline-tutorial">
+                <div class="tutorial-header">
+                    <h2>📖 How to Play</h2>
+                    <p class="tutorial-subtitle">Learn the basics before you start</p>
+                </div>
+
+                <div class="tutorial-content-area">
+                    <!-- Step 1 -->
+                    <div class="tutorial-slide active" data-slide="1">
+                        <div class="tutorial-icon">📚</div>
+                        <h3>Read the Story</h3>
+                        <p>You will see a <strong>short story</strong>.</p>
+                        <p>Some words are <strong>highlighted in yellow</strong>.</p>
+                        <p>Read the story carefully!</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="tutorial-slide" data-slide="2">
+                        <div class="tutorial-icon">🎯</div>
+                        <h3>Match Words</h3>
+                        <p>Click on a <strong>word</strong> on the left.</p>
+                        <p>Then click on its <strong>meaning</strong> on the right.</p>
+                        <p>Match all words to finish!</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="tutorial-slide" data-slide="3">
+                        <div class="tutorial-icon">❤️</div>
+                        <h3>Lives & Time</h3>
+                        <p>You have <strong>3 lives ❤️❤️❤️</strong></p>
+                        <p>Wrong match = lose 1 life</p>
+                        <p>No lives left = start again</p>
+                        <p>Watch the timer! ⏱️</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="tutorial-slide" data-slide="4">
+                        <div class="tutorial-icon">🏆</div>
+                        <h3>Score Points</h3>
+                        <p>Each correct match gives you points!</p>
+                        <p><strong>Maximum score: 100 points</strong></p>
+                        <p>Try to get all 100 points!</p>
+                        
+                        <!-- Start Button -->
+                        <div id="start-button-container" style="display:none; margin-top: 20px;">
+                            <button id="start-game-btn" class="btn btn-success btn-large-tutorial">
+                                ▶️ Start Game Now!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Navigation - Buttons di samping, Indicators di tengah -->
+                <div class="tutorial-nav">
+                    <!-- Previous Button - Kiri -->
+                    <button id="prev-slide" class="btn btn-secondary" disabled>← Previous</button>
+                    
+                    <!-- Slide Indicators - Tengah -->
+                    <div class="slide-indicators">
+                        <span class="slide-dot active" data-slide="1"></span>
+                        <span class="slide-dot" data-slide="2"></span>
+                        <span class="slide-dot" data-slide="3"></span>
+                        <span class="slide-dot" data-slide="4"></span>
+                    </div>
+                    
+                    <!-- Next Button - Kanan -->
+                    <button id="next-slide" class="btn btn-primary">Next →</button>
+                </div>
+            </div>
+
+            <!-- Game Content - DARI VERSI 1 -->
+            <div id="game-content" style="display:none;">
+                <!-- Single Paragraph -->
+                <div class="paragraph-section">
+                    <h3>📖 Read the Story:</h3>
+                    <div class="paragraph-box" id="paragraph-box">
+                        <!-- Paragraph will be injected here -->
+                    </div>
+                </div>
+
+                <!-- Matching Area - Side by Side -->
+                <div class="matching-area">
+                    <!-- Words Column (Left) -->
+                    <div class="words-column">
+                        <h3>Words</h3>
+                        <div id="words-container" class="cards-container">
+                            <!-- Word cards will be generated here -->
+                        </div>
+                    </div>
+
+                    <!-- Meanings Column (Right) -->
+                    <div class="meanings-column">
+                        <h3>Meanings</h3>
+                        <div id="meanings-container" class="cards-container">
+                            <!-- Meaning cards will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions">
+                <button id="next-level" class="btn btn-success btn-large" style="display:none;">
+                    Next Level →
+                </button>
+            </div>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div id="feedback-modal" class="modal">
+            <div class="modal-content feedback-content">
+                <div class="feedback-icon" id="feedback-icon"></div>
+                <div class="feedback-message" id="feedback-message"></div>
+                <button id="close-feedback" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div id="gameover-modal" class="modal">
+            <div class="modal-content gameover-content">
+                <h2>💔 Game Over</h2>
+                <p>You lost all your lives!</p>
+                <p>Level will restart.</p>
+                <button id="restart-level" class="btn btn-primary">Restart Level</button>
+            </div>
+        </div>
+
+        <!-- Completion Modal -->
+        <div id="completion-modal" class="modal">
+            <div class="modal-content completion-content">
+                <h2>🎉 Congratulations!</h2>
+                <p>You've completed all levels!</p>
+                <div class="final-score">
+                    <h3>Final Score</h3>
+                    <div class="score-big" id="final-score">0</div>
+                    <p>points</p>
+                </div>
+                <div class="completion-actions">
+                    <button onclick="window.location.reload()" class="btn btn-secondary">
+                        Play Again
+                    </button>
+                    <button onclick="window.location.href='../index.html'" class="btn btn-primary">
+                        Back to Menu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

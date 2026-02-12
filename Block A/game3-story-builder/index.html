@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>Story Builder - Learning Games</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Prevent zoom on input focus (iOS) -->
+    <style>
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- ================================
+             HEADER - MOBILE OPTIMIZED
+             ================================ -->
+        <header class="game-header">
+            <div class="header-left">
+                <span class="game-icon">📚</span>
+                <span class="game-caption">Story Builder</span>
+            </div>
+            <div class="header-buttons">
+                <button onclick="alert('Back to home')" class="home-button" type="button">Home</button>
+            </div>
+        </header>
+
+        <!-- ================================
+             MAIN CONTENT AREA
+             ================================ -->
+        <div class="main-content">
+            
+            <!-- ================================
+                 TUTORIAL SCREEN - ENHANCED MULTI-STEP
+                 ================================ -->
+            <div id="tutorial-screen" class="tutorial-screen active">
+                <div class="tutorial-container">
+                    <div class="tutorial-header">
+                        <h2>Welcome to Story Builder!</h2>
+                        <p class="tutorial-subtitle">Build your own coherent story in 5 stages</p>
+                    </div>
+
+                    <div class="tutorial-content">
+                        <div id="tutorial-steps">
+                            
+                            <!-- STEP 1: Introduction -->
+                            <div class="tutorial-step active" data-step="1">
+                                <h3>🎮 How to Play</h3>
+                                <p>Build a story in 5 steps. Pick good choices to make your story make sense!</p>
+                                
+                                <div class="tutorial-explanation">
+                                    <p><strong>Step 1:</strong> Pick your hero (like Fox, Rabbit, or Bear)</p>
+                                    <p><strong>Step 2:</strong> Pick a place (like Forest, River, or Castle)</p>
+                                    <p><strong>Step 3:</strong> Pick a problem (like Lost, Hungry, or Cold)</p>
+                                    <p><strong>Step 4:</strong> Pick a solution (how to fix the problem)</p>
+                                    <p><strong>Step 5:</strong> Pick an ending (how the story ends)</p>
+                                </div>
+                                
+                                <div class="tips-box">
+                                    <p>🎯 <strong>Tip:</strong> Good choices = High score!</p>
+                                    <p>🌟 <strong>Tip:</strong> Make choices that make sense together!</p>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2: Story Example -->
+                            <div class="tutorial-step" data-step="2">
+                                <h3>📖 Story Example</h3>
+                                <p>Here's what a complete story looks like:</p>
+                                
+                                <div class="story-example-box">
+                                    <div class="story-line">
+                                        <span class="story-icon">🦊</span>
+                                        <span class="story-stage">Character:</span>
+                                        <span class="story-text">Fox</span>
+                                    </div>
+                                    <div class="story-line">
+                                        <span class="story-icon">🌲</span>
+                                        <span class="story-stage">Setting:</span>
+                                        <span class="story-text">Forest</span>
+                                    </div>
+                                    <div class="story-line">
+                                        <span class="story-icon">❓</span>
+                                        <span class="story-stage">Problem:</span>
+                                        <span class="story-text">Got lost in the dark woods</span>
+                                    </div>
+                                    <div class="story-line">
+                                        <span class="story-icon">💡</span>
+                                        <span class="story-stage">Action:</span>
+                                        <span class="story-text">Followed the stars to navigate</span>
+                                    </div>
+                                    <div class="story-line">
+                                        <span class="story-icon">✨</span>
+                                        <span class="story-stage">Resolution:</span>
+                                        <span class="story-text">Found the way home safely</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="story-note">
+                                    <strong>💡 Why this works:</strong> Fox in a Forest makes sense! They belong there. The problem fits the setting, and the solution fits the problem.
+                                </div>
+                            </div>
+
+                            <!-- STEP 3: Coherence System -->
+                            <div class="tutorial-step" data-step="3">
+                                <h3>🎯 Understanding Coherence</h3>
+                                <p><strong>Coherence</strong> measures how well your story makes sense!</p>
+                                
+                                <div class="coherence-demo">
+                                    <div class="coherence-example good">
+                                        <div class="coherence-bar-demo">
+                                            <div class="coherence-fill-demo" style="width: 95%;"></div>
+                                        </div>
+                                        <p class="coherence-label-demo">95% - Perfect! ⭐</p>
+                                        <p class="coherence-desc">🦊 Fox + 🌲 Forest = Makes sense!</p>
+                                    </div>
+                                    
+                                    <div class="coherence-example okay">
+                                        <div class="coherence-bar-demo">
+                                            <div class="coherence-fill-demo" style="width: 60%;"></div>
+                                        </div>
+                                        <p class="coherence-label-demo">60% - Okay 👍</p>
+                                        <p class="coherence-desc">🦊 Fox + 🌊 Ocean = A bit odd</p>
+                                    </div>
+                                    
+                                    <div class="coherence-example poor">
+                                        <div class="coherence-bar-demo">
+                                            <div class="coherence-fill-demo" style="width: 30%;"></div>
+                                        </div>
+                                        <p class="coherence-label-demo">30% - Strange 🤔</p>
+                                        <p class="coherence-desc">🐟 Fish + 🏜️ Desert = Doesn't work!</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="tips-box">
+                                    <p><strong>Higher coherence = Higher score!</strong></p>
+                                    <p>Think: Would this really happen in real life?</p>
+                                </div>
+                            </div>
+
+                            <!-- STEP 4: Scoring -->
+                            <div class="tutorial-step" data-step="4">
+                                <h3>🏆 How Scoring Works</h3>
+                                <p>Your final coherence determines your points:</p>
+                                
+                                <div class="score-examples">
+                                    <div class="score-item good">
+                                        <div class="score-badge">⭐ Perfect!</div>
+                                        <div class="score-label">90-100% Coherence</div>
+                                        <div class="score-points">50 points</div>
+                                    </div>
+                                    
+                                    <div class="score-item okay">
+                                        <div class="score-badge">👍 Good!</div>
+                                        <div class="score-label">70-89% Coherence</div>
+                                        <div class="score-points">35 points</div>
+                                    </div>
+                                    
+                                    <div class="score-item fair">
+                                        <div class="score-badge">😊 Okay</div>
+                                        <div class="score-label">40-69% Coherence</div>
+                                        <div class="score-points">20 points</div>
+                                    </div>
+                                    
+                                    <div class="score-item poor">
+                                        <div class="score-badge">🤔 Try Again</div>
+                                        <div class="score-label">0-39% Coherence</div>
+                                        <div class="score-points">10 points</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tips-box">
+                                    <p>💡 <strong>Pro tip:</strong> Think about what makes sense!</p>
+                                    <p>🎯 Fish belong in water, not deserts!</p>
+                                    <p>🌟 Bears live in caves and forests!</p>
+                                </div>
+                            </div>
+
+                            <!-- STEP 5: Ready to Play -->
+                            <div class="tutorial-step" data-step="5">
+                                <h3>🚀 Ready to Play?</h3>
+                                <p>You've learned everything! Now let's build your story!</p>
+                                
+                                <div class="game-preview">
+                                    <div class="preview-header">
+                                        <p><strong>What you'll see:</strong></p>
+                                    </div>
+                                    
+                                    <div class="preview-meter">
+                                        <div class="preview-label">Coherence Meter</div>
+                                        <div class="preview-bar">
+                                            <div class="preview-fill"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="preview-cards">
+                                        <div class="preview-card">
+                                            <div class="preview-icon">🦊</div>
+                                            <div class="preview-text">Fox</div>
+                                        </div>
+                                        <div class="preview-card">
+                                            <div class="preview-icon">🐰</div>
+                                            <div class="preview-text">Rabbit</div>
+                                        </div>
+                                        <div class="preview-card">
+                                            <div class="preview-icon">🦉</div>
+                                            <div class="preview-text">Owl</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tips-box">
+                                    <p>🎮 <strong>Remember:</strong></p>
+                                    <p>✓ Pick characters that fit the setting</p>
+                                    <p>✓ Choose logical solutions</p>
+                                    <p>✓ Watch your coherence meter!</p>
+                                    <p>✓ Have fun creating stories!</p>
+                                </div>
+                                
+                                <p class="ready-text"><strong>Ready? Let's start building! 🌟</strong></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Tutorial Navigation as Footer -->
+                <div class="tutorial-navigation">
+                    <button id="prev-tutorial" class="btn-tutorial btn-prev" type="button" disabled>Previous</button>
+                    
+                    <!-- Progress Dots -->
+                    <div class="tutorial-progress">
+                        <span class="dot active" data-step="1"></span>
+                        <span class="dot" data-step="2"></span>
+                        <span class="dot" data-step="3"></span>
+                        <span class="dot" data-step="4"></span>
+                        <span class="dot" data-step="5"></span>
+                    </div>
+                    
+                    <button id="next-tutorial" class="btn-tutorial btn-next" type="button">Next</button>
+                    <button id="start-game" class="btn-tutorial btn-start" type="button" style="display:none;">Start Game</button>
+                </div>
+            </div>
+
+            <!-- ================================
+                 GAME AREA
+                 ================================ -->
+            <div id="game-area" class="game-area" style="display:none;">
+                
+                <!-- ================================
+                     PROGRESS SECTION
+                     ================================ -->
+                <div class="progress-section">
+                    <div class="game-subtitle">Build your own coherent story!</div>
+                    
+                    <div class="progress-container">
+                        <div class="coherence-area">
+                            <div class="coherence-label">Coherence</div>
+                            <div class="meter-bar">
+                                <div id="coherence-fill" class="meter-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="coherence-percent-area">
+                            <div id="coherence-percent" class="coherence-percent" aria-live="polite">0%</div>
+                        </div>
+                        
+                        <div class="stage-area">
+                            <div class="stage-label">Stage</div>
+                            <div class="stage-value"><span id="current-stage" aria-live="polite">1</span>/5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================================
+                     STORY SIDEBAR - TABLE FORMAT
+                     ================================ -->
+                <div class="story-sidebar">
+                    <h3>📖 Story Elements:</h3>
+                    
+                    <div class="story-table-wrapper" id="story-table-wrapper">
+                        <table class="story-table">
+                            <thead>
+                                <tr>
+                                    <th>Character</th>
+                                    <th>Setting</th>
+                                    <th>Problem</th>
+                                    <th>Action</th>
+                                    <th>Resolution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="story-character">-</td>
+                                    <td id="story-setting">-</td>
+                                    <td id="story-problem">-</td>
+                                    <td id="story-action">-</td>
+                                    <td id="story-resolution">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ================================
+                     SELECTION AREA
+                     ================================ -->
+                <div class="selection-area">
+                    <h2 id="stage-title" aria-live="polite">Choose a Character</h2>
+                    <div id="options-container" class="options-grid" role="radiogroup" aria-label="Story options"></div>
+                </div>
+
+                <!-- ================================
+                     ACTIONS - SIDE BY SIDE BUTTONS
+                     ================================ -->
+                <div class="actions">
+                    <button id="back-button" class="btn-action btn-back" type="button" style="display:none;">
+                        Back
+                    </button>
+                    <button id="confirm-choice" class="btn-action btn-confirm" type="button" style="display:none;" disabled>
+                        Confirm Choice
+                    </button>
+                    <button id="see-feedback" class="btn-action btn-feedback" type="button" style="display:none;">
+                        See Feedback
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================================
+                 FEEDBACK PAGE
+                 ================================ -->
+            <div id="feedback-page" class="feedback-page" style="display:none;">
+                <div class="feedback-container">
+                    <h2 class="feedback-title">🎉 Story Complete!</h2>
+                    
+                    <div class="final-story-section">
+                        <h3>Your Story:</h3>
+                        <div id="final-story" class="final-story-box"></div>
+                    </div>
+                    
+                    <div class="score-section">
+                        <div class="score-display">
+                            <span class="score-label">Score:</span>
+                            <span id="final-score" class="score-value">0</span>
+                            <span class="score-unit">points</span>
+                        </div>
+                        <p id="coherence-feedback" class="coherence-feedback-text"></p>
+                    </div>
+                    
+                    <div class="feedback-actions">
+                        <button onclick="location.reload()" class="btn-feedback-action btn-again" type="button">Build Again</button>
+                        <button onclick="alert('Back to menu')" class="btn-feedback-action btn-menu" type="button">Back to Menu</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div><!-- End of main-content -->
+
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

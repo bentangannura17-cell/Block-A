@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Reader - Learning Games</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        
+        <!-- INSTRUCTION SCREEN -->
+        <div id="instruction-screen" class="instruction-screen">
+            <!-- Header with caption left and home button right -->
+            <div class="instruction-header">
+                <div class="game-caption">⚡ Speed Reader</div>
+                <button onclick="window.location.href='../index.html'" class="home-button">Home</button>
+            </div>
+
+            <div class="instruction-content">
+                <!-- Welcome section - smaller -->
+                <div class="instruction-welcome">
+                    <h2>Welcome to Speed Reader!</h2>
+                    <p>Read fast, think faster</p>
+                </div>
+
+                <!-- Combined Instructions (Step 1 + 2 only) -->
+                <div class="instruction-body">
+                    <div class="instruction-item">
+                        <div class="step-badge">How to Play</div>
+                        <p>Read the paragraph carefully and answer the question by selecting one of the multiple choice options.</p>
+                    </div>
+
+                    <div class="instruction-item">
+                        <div class="step-badge">Time Limit</div>
+                        <p>You have <strong>30-60 seconds</strong> per round to read and answer. Easier rounds have less time! The timer starts automatically when the round begins.</p>
+                    </div>
+                </div>
+
+                <!-- Start Game Button at bottom -->
+                <button id="start-game-btn" class="start-game-btn">
+                    Start Game
+                </button>
+            </div>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="game-screen" class="game-screen" style="display:none;">
+            <!-- Unified Container (Header + Game Area) -->
+            <div class="unified-container">
+                <!-- Header Section -->
+                <header class="game-header">
+                    <div class="game-caption-small">⚡ Speed Reader</div>
+                    <button onclick="window.location.href='../index.html'" class="home-button">Home</button>
+                </header>
+
+                <!-- Game Content -->
+                <div class="game-content">
+                    <!-- Image Placeholder - Smaller -->
+                    <div id="image-placeholder" class="image-placeholder">
+                        <div class="placeholder-text">Image Area</div>
+                    </div>
+
+                    <!-- Reading Section with Round Info Horizontal -->
+                    <div class="reading-header">
+                        <h3>📖 Read This Paragraph:</h3>
+                        <!-- Round/Time Info Horizontal -->
+                        <div class="round-time-info">
+                            <span class="info-item">Round: <strong id="current-round">1</strong>/15</span>
+                            <span class="info-divider">|</span>
+                            <span class="info-item timer-info">Time: <strong id="timer">30</strong>s</span>
+                        </div>
+                    </div>
+                    <div class="reading-section">
+                        <div id="paragraph-box" class="paragraph-box"></div>
+                    </div>
+
+                    <!-- Question Section -->
+                    <div id="question-section" class="question-section">
+                        <div class="question-header">
+                            <h3 id="question-text"></h3>
+                        </div>
+                        <!-- Options in 2x2 Grid -->
+                        <div id="options-container" class="options-grid"></div>
+                    </div>
+
+                    <!-- Next Button (appears after answering) -->
+                    <div id="next-button-container" class="next-button-container" style="display:none;">
+                        <button id="next-button" class="next-button">Next Round →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLETION MODAL -->
+        <div id="completion-modal" class="modal">
+            <div class="modal-content">
+                <h2>🎉 Challenge Complete!</h2>
+                <div class="final-score">
+                    <div class="score-label">Final Score</div>
+                    <div class="score-value" id="final-score">0</div>
+                    <div class="score-unit">points</div>
+                </div>
+                <div class="completion-actions">
+                    <button onclick="location.reload()" class="btn btn-secondary">🔄 Play Again</button>
+                    <button onclick="window.location.href='../index.html'" class="btn btn-primary">🏠 Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

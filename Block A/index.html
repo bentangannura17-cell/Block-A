@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- ✨ MOBILE: Prevent zoom on form fields (iOS) -->
+    <meta name="format-detection" content="telephone=no">
+    <!-- ✨ MOBILE: Web app capable -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>Learning Games - Play and Learn English</title>
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- Add meta theme color for mobile browsers -->
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="description" content="Learn English through 4 interactive games: Story Detective, Vocabulary Matcher, Speed Reader, and Story Builder">
+</head>
+<body>
+    <!-- ================================
+         HEADER
+         ================================ -->
+    <header class="mobile-header">
+        <!-- Left: Menu Button -->
+        <button class="menu-button" id="menu-button" aria-label="Open menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <!-- Center: Title -->
+        <h1 class="header-title">Play and Learn English</h1>
+
+        <!-- Right: Placeholder -->
+        <div class="header-right"></div>
+    </header>
+
+    <!-- ================================
+         SIDE MENU
+         ================================ -->
+    <nav class="side-menu" id="side-menu" role="navigation" aria-label="Main menu">
+        <div class="menu-header">
+            <h2>Menu</h2>
+            <button class="close-menu" id="close-menu" aria-label="Close menu">×</button>
+        </div>
+        <div class="menu-content">
+            <div class="total-score-display">
+                <span class="label">Total Score</span>
+                <span id="total-score" class="score-value">0</span>
+                <span class="points">pts</span>
+            </div>
+            <button id="reset-progress" class="menu-action-button">
+                🔄 Reset All Progress
+            </button>
+            <div class="menu-placeholder">
+                <p>More features coming soon...</p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- OVERLAY (when menu is open) -->
+    <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+    <!-- ================================
+         MAIN CONTAINER
+         Split into 2 sections
+         ================================ -->
+    <div class="carousel-container">
+        
+        <!-- ================================
+             SECTION 1: CAROUSEL SECTION
+             Circle games yang bisa di-swipe
+             ================================ -->
+        <section class="carousel-section" id="carousel-section">
+            <div class="circles-wrapper" id="circles-wrapper" role="region" aria-label="Game selector">
+                
+                <!-- Circle 1: Story Detective -->
+                <div class="game-circle" data-game="0" aria-label="Story Detective - Game 1">
+                    <div class="circle-inner" data-game-number="1">
+                        <!-- 
+                        📸 CARA MENAMBAHKAN GAMBAR:
+                        1. Uncomment baris <img> di bawah
+                        2. Ganti path dengan gambar Anda
+                        3. Tambahkan class "has-image" ke circle-inner
+                        -->
+                        <!-- <img src="images/game1-detective.png" alt="Story Detective"> -->
+                    </div>
+                </div>
+                
+                <!-- Circle 2: Vocabulary Matcher -->
+                <div class="game-circle" data-game="1" aria-label="Vocabulary Matcher - Game 2">
+                    <div class="circle-inner" data-game-number="2">
+                        <!-- <img src="images/game2-vocabulary.png" alt="Vocabulary Matcher"> -->
+                    </div>
+                </div>
+                
+                <!-- Circle 3: Speed Reader (DULU GAME 4) -->
+                <div class="game-circle" data-game="2" aria-label="Speed Reader - Game 3">
+                    <div class="circle-inner" data-game-number="3">
+                        <!-- <img src="images/game3-reader.png" alt="Speed Reader"> -->
+                    </div>
+                </div>
+                
+                <!-- Circle 4: Story Builder (DULU GAME 3) -->
+                <div class="game-circle" data-game="3" aria-label="Story Builder - Game 4">
+                    <div class="circle-inner" data-game-number="4">
+                        <!-- <img src="images/game4-builder.png" alt="Story Builder"> -->
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- ================================
+             SECTION 2: INFO SECTION
+             Game name, description, stats, button
+             ================================ -->
+        <section class="info-section" id="info-section">
+            <div class="content-container">
+                <!-- ✨ TOP CONTENT: Title, Description, Stats -->
+                <div class="content-section" id="content-current">
+                    
+                    <!-- Game Title -->
+                    <h2 class="game-title" id="game-title-current">Story Detective</h2>
+                    
+                    <!-- Game Description -->
+                    <p class="game-desc" id="game-desc-current">
+                        Arrange story parts in the correct order to build a complete narrative
+                    </p>
+                    
+                    <!-- Game Stats (Points & Progress) -->
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">🏆</span>
+                            <span class="stat-value" id="game-score-current">0</span>
+                            <span class="stat-label">Points</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📊</span>
+                            <span class="stat-value" id="game-progress-current">0%</span>
+                            <span class="stat-label">Progress</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- ✨ BOTTOM CONTENT: Play Button -->
+                <div class="button-container">
+                    <a href="#" class="play-button" id="play-button-current">
+                        <span>Play Story Detective Now</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/navigation.js"></script>
+</body>
+</html>

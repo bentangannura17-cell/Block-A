@@ -1,0 +1,685 @@
+/* ============================================
+   ✨ IMPROVED CAROUSEL - MOBILE PRIORITY
+   - Simplified touch handling
+   - Aggressive pointer events
+   - Remove all touch blockers
+   ============================================ */
+
+:root {
+    --primary-pink: #FF6B6B;
+    --primary-pink-dark: #EE5A6F;
+    --text-black: #000000;
+    --text-gray: #333333;
+    --text-light-gray: #666666;
+    --background-white: #FFFFFF;
+    --background-light: #F8F9FA;
+    --border-color: #E0E0E0;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-white);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    color: var(--text-black);
+    overflow: hidden;
+    /* ✨ CRITICAL MOBILE FIX: Remove touch-action restriction */
+    touch-action: none;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+    height: -webkit-fill-available;
+    /* ✨ CRITICAL MOBILE FIX */
+    touch-action: none;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: var(--background-white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* ✨ MOBILE: Allow touch on header buttons */
+    touch-action: auto;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    /* ✨ MOBILE: Ensure button works */
+    touch-action: auto;
+    pointer-events: auto;
+}
+
+.menu-button:active {
+    transform: scale(0.9);
+}
+
+.hamburger-line {
+    width: 20px;
+    height: 2.5px;
+    background: var(--text-black);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-title {
+    font-size: 0.92em;
+    color: var(--text-black);
+    font-weight: 400;
+    text-align: center;
+    flex: 1;
+}
+
+.header-right {
+    width: 32px;
+}
+
+/* ============================================
+   SIDE MENU
+   ============================================ */
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background: var(--background-white);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    /* ✨ MOBILE: Allow touch in menu */
+    touch-action: auto;
+}
+
+.side-menu.open {
+    left: 0;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.menu-header h2 {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--text-black);
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: var(--text-gray);
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    /* ✨ MOBILE: Ensure button works */
+    touch-action: auto;
+    pointer-events: auto;
+}
+
+.close-menu:active {
+    transform: scale(0.9);
+}
+
+.menu-content {
+    flex: 1;
+    padding: var(--spacing-lg) var(--spacing-md);
+    overflow-y: auto;
+}
+
+.total-score-display {
+    background: var(--background-light);
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    border: 2px solid var(--border-color);
+}
+
+.total-score-display .label {
+    display: block;
+    font-size: 0.85em;
+    color: var(--text-light-gray);
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.total-score-display .score-value {
+    display: inline-block;
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--primary-pink);
+}
+
+.total-score-display .points {
+    font-size: 0.95em;
+    color: var(--text-light-gray);
+    margin-left: 4px;
+    font-weight: 600;
+}
+
+.menu-action-button {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: var(--background-light);
+    color: var(--text-black);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: var(--spacing-sm);
+    transition: all 0.2s ease;
+    /* ✨ MOBILE: Ensure button works */
+    touch-action: auto;
+    pointer-events: auto;
+}
+
+.menu-action-button:active {
+    transform: translateY(2px);
+    background: var(--border-color);
+}
+
+.menu-placeholder {
+    margin-top: var(--spacing-lg);
+    padding: 20px;
+    background: var(--background-light);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.menu-placeholder p {
+    color: var(--text-light-gray);
+    font-size: 0.85em;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+    /* ✨ MOBILE: Allow touch */
+    touch-action: auto;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+
+.carousel-container {
+    margin-top: 48px;
+    height: calc(100vh - 48px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* ============================================
+   ✨ CAROUSEL SECTION - MOBILE PRIORITY
+   ============================================ */
+
+.carousel-section {
+    width: 100%;
+    height: 320px;
+    flex-shrink: 0;
+    
+    /* 🎯 Perfect centering with flexbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: var(--background-white);
+    position: relative;
+    /* ✨ CRITICAL MOBILE FIX: Remove all touch restrictions */
+    touch-action: none !important;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
+    /* 🚫 CRITICAL: Hide circles that go outside */
+    overflow: hidden;
+    
+    /* Push to comfortable viewing position */
+    margin-top: calc(15vh - 80px);
+    
+    /* ✨ CRITICAL: Enable all interactions */
+    pointer-events: auto !important;
+    -webkit-touch-callout: none;
+}
+
+.carousel-section:active {
+    cursor: grabbing;
+}
+
+/* ✨ Container for circles */
+.circles-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* ✨ CRITICAL MOBILE FIX: Enable all touches */
+    pointer-events: auto !important;
+    touch-action: none !important;
+    overflow: visible;
+    -webkit-touch-callout: none;
+}
+
+/* ============================================
+   ✨ GAME CIRCLES - MOBILE PRIORITY
+   ============================================ */
+
+.game-circle {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* ✨ CRITICAL: Initial centering */
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    /* ✨ CRITICAL MOBILE FIX: Enable all touches */
+    pointer-events: auto !important;
+    touch-action: none !important;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.circle-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, 
+                var(--background-white) 0%,
+                var(--background-light) 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--border-color);
+    /* ✨ MOBILE: Enable touch */
+    pointer-events: auto;
+}
+
+.circle-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.circle-inner::after {
+    content: attr(data-game-number);
+    position: absolute;
+    font-size: 2.8em;
+    font-weight: 700;
+    color: var(--text-light-gray);
+    z-index: 1;
+}
+
+.circle-inner.has-image::after {
+    display: none;
+}
+
+/* ✨ Active circle effect - enhanced shadow with pink glow */
+.game-circle[style*="z-index: 10"] .circle-inner {
+    box-shadow: 0 16px 48px rgba(255, 107, 107, 0.5),
+                0 8px 24px rgba(255, 107, 107, 0.3);
+    border-color: var(--primary-pink);
+    transform: scale(1.05);
+}
+
+.game-circle:nth-child(1) .circle-inner::after { content: '1'; }
+.game-circle:nth-child(2) .circle-inner::after { content: '2'; }
+.game-circle:nth-child(3) .circle-inner::after { content: '3'; }
+.game-circle:nth-child(4) .circle-inner::after { content: '4'; }
+.game-circle:nth-child(5) .circle-inner::after { content: '5'; }
+
+/* ============================================
+   INFO SECTION
+   ============================================ */
+
+.info-section {
+    width: 100%;
+    flex: 1;
+    background: var(--background-white);
+    padding: 64px var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    /* ✨ MOBILE: Allow touch for buttons */
+    touch-action: auto;
+}
+
+.content-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    transform: translateZ(0);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-section {
+    width: 100%;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.game-title {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: var(--text-black);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.game-desc {
+    font-size: 0.85em;
+    color: var(--text-light-gray);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+}
+
+.game-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-width: auto;
+}
+
+.stat-icon {
+    font-size: 1.15em;
+}
+
+.stat-value {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: var(--text-black);
+}
+
+.stat-label {
+    font-size: 0.65em;
+    color: var(--text-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.play-button {
+    display: inline-block;
+    width: 100%;
+    max-width: 240px;
+    padding: 12px 24px;
+    background: var(--primary-pink);
+    color: white;
+    text-decoration: none;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 19px rgba(255, 107, 107, 0.3);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    /* ✨ MOBILE: Ensure button works */
+    touch-action: auto;
+    pointer-events: auto;
+}
+
+.play-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255, 107, 107, 0.4);
+    background: var(--primary-pink-dark);
+}
+
+.play-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+}
+
+/* ✨ Button container to hold button at bottom */
+.button-container {
+    width: 100%;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 32px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+    .mobile-header {
+        height: 44px;
+    }
+    
+    .carousel-container {
+        margin-top: 44px;
+        height: calc(100vh - 44px);
+    }
+    
+    .carousel-section {
+        height: 280px;
+        margin-top: calc(12vh - 70px);
+    }
+    
+    .game-circle {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .circle-inner::after {
+        font-size: 2.4em;
+    }
+    
+    .info-section {
+        padding-top: 56px;
+    }
+    
+    .button-container {
+        margin-top: 28px;
+    }
+}
+
+@media (max-width: 360px) {
+    .carousel-section {
+        height: 250px;
+        margin-top: calc(10vh - 60px);
+    }
+    
+    .game-circle {
+        width: 115px;
+        height: 115px;
+    }
+    
+    .circle-inner::after {
+        font-size: 2.2em;
+    }
+    
+    .info-section {
+        padding-top: 48px;
+    }
+    
+    .button-container {
+        margin-top: 24px;
+    }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .carousel-section {
+        height: 200px;
+        margin-top: 5vh;
+    }
+    
+    .game-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .info-section {
+        padding-top: 32px;
+    }
+    
+    .button-container {
+        margin-top: 16px;
+    }
+}
+
+@media (min-width: 768px) {
+    .carousel-section {
+        height: 360px;
+        margin-top: calc(18vh - 100px);
+    }
+    
+    .game-circle {
+        width: 170px;
+        height: 170px;
+    }
+    
+    .circle-inner::after {
+        font-size: 3.2em;
+    }
+    
+    .info-section {
+        padding-top: 72px;
+    }
+    
+    .button-container {
+        margin-top: 36px;
+    }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.carousel-section * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.info-section {
+    -webkit-overflow-scrolling: touch;
+}
